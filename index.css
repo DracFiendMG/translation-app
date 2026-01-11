@@ -1,0 +1,134 @@
+html, body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Header */
+header {
+    background-image: url('./assets/worldmap.png');
+    background-repeat: no-repeat;
+    background-position: 35% 100%;
+    background-size: cover;
+    padding: 4.0625em 2.625em;
+}
+
+header > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.9375em
+}
+
+header h1 {
+    font-size: 2.75em;
+    font-weight: 800;
+    font-family: "Big Shoulders", sans-serif;
+    color: #32CD32;
+}
+
+header p {
+    font-size: 0.75em;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+header h1, header p {
+    margin: 0;
+}
+
+.parrot {
+    width: 95px;
+}
+
+/* Main */
+#translate {
+    margin: 1.875em 0.9375em;
+    border: 4px solid #252F42;
+    border-radius: 15px;
+    padding: 1.5rem 1.5em 2.875em;
+}
+
+#translate button {
+    font-size: 1.5em;
+    font-family: inherit;
+    font-weight: 700;
+    width: 100%;
+    color: #FFFFFF;
+    background-color: #035A9D;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem;
+}
+
+#reset {
+    display: none;
+}
+
+#text-box, #translated-text-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+}
+
+#translated-text-box {
+    margin-top: 1.5em;
+}
+
+#text, #translated-text {
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 1.25em;
+    color: #333333;
+    background-color: #EFF0F4;
+    border: none;
+    border-radius: 8px;
+    min-height: 100px;
+    resize: none;
+    padding: 0.5em;
+}
+
+textarea:focus,
+textarea:active {
+    outline: none;
+}
+
+.headings {
+    color: #035A9D;
+    font-size: 1.25em;
+    font-weight: 700;
+    text-align: center;
+}
+
+#language {
+    margin-bottom: 2.8125em;
+}
+
+#language-choice {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.25em;
+    font-weight: 700;
+    margin: 0 2.25em;
+    width: 100%;
+}
+
+#language-choice div {
+    width: 200px;
+}
+
+input[type="radio" i] {
+    margin-right: 0.625em;
+}
+
+div img {
+    margin-left: 0.75em;
+    border: 1px solid #999999;
+    margin-bottom: -0.3125em;
+}
+
+@media (min-width: 400px) {
+    #language-choice {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}

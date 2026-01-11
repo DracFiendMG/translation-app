@@ -1,10 +1,58 @@
 <!doctype html>
 <html>
     <head>
+        <title>Translation App</title>
         <link rel="stylesheet" href="index.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:opsz,wght@10..72,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     </head>
     <body>
-        <!-- Your HTML here -->
+        <header>
+            <div>
+                <img class="parrot" src="./assets/parrot.png" alt="Parrot Flying" />
+                <div>
+                    <h1>PollyGlot</h1>
+                    <p>Perfect Translation Every Time</p>
+                </div>
+            </div>
+        </header>
+        <main>
+            <section>
+                <form id="translate">
+                    <div id="text-box">
+                        <label class="headings" for="text">Text to translate 👇</label>
+                        <textarea id="text" name="text"></textarea>
+                    </div>
+                    <div id="translated-text-box">
+                        <label class="headings" for="translated-text">Your translation 👇</label>
+                        <textarea id="translated-text" name="translated-text"></textarea>
+                    </div>
+                    <div id="language">
+                        <p class="headings">Select language 👇</p>
+                        <div id="language-choice">
+                            <div>
+                                <input type="radio" id="french" name="language" value="french">
+                                <label for="french">French<span><img src="./assets/fr-flag.png"></span></label>
+                            </div>
+                            <div>
+                                <input type="radio" id="spanish" name="language" value="spanish">
+                                <label for="spanish">Spanish<span><img src="./assets/sp-flag.png"></span></label>
+                            </div>
+                            <div>
+                                <input type="radio" id="japanese" name="language" value="japanese">
+                                <label for="japanese">Japanese<span><img src="./assets/jpn-flag.png"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="submit" type="submit">Translate</button>
+                    <button id="reset" type="reset">Start Over</button>
+                </form>
+            </section>
+            <section>
+
+            </section>
+        </main>
         <script src="index.js" type="module"></script>
     </body>
 </html>
