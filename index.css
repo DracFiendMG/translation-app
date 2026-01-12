@@ -60,10 +60,6 @@ header h1, header p {
     padding: 0.5rem;
 }
 
-#reset {
-    display: none;
-}
-
 #text-box, #translated-text-box {
     display: flex;
     flex-direction: column;
@@ -71,8 +67,8 @@ header h1, header p {
 }
 
 #translated-text-box {
-    display: none;
     margin-top: 1.5em;
+    margin-bottom: 1.5em;
 }
 
 #text, #translated-text {
