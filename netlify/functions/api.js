@@ -1,4 +1,4 @@
-const API_ENDPOINT = 'https://api.openai.com/v1/chat/completions'
+const API_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions'
 
 export default async (request, context) => {
     const { text, language } = await request.json();
@@ -23,11 +23,13 @@ export default async (request, context) => {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+                "Authorization": `Bearer ${process.env.GROQ_API_KEY}`
             },
             body: JSON.stringify({
-                model: 'gpt-3.5-turbo',
-                messages: messages
+                model: 'openai/gpt-oss-20b',
+                messages: messages,
+                temperature: 1.1,
+                max_tokens: 1000
             })
         })
 

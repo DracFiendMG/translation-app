@@ -71,6 +71,7 @@ header h1, header p {
 }
 
 #translated-text-box {
+    display: none;
     margin-top: 1.5em;
 }
 
