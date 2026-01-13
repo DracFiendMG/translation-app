@@ -113,6 +113,10 @@ input[type=text]:active {
     border: none;
 }
 
+#translate-chat button:disabled img {
+    filter: grayscale(100%);
+}
+
 #translate-chat img {
     border: none;
 }
@@ -128,7 +132,8 @@ input[type=text]:active {
 }
 
 #translate button {
-    margin: auto;
+    display: flex;
+    justify-content: center;
     font-size: 1.5em;
     font-family: inherit;
     font-weight: 700;
@@ -138,6 +143,11 @@ input[type=text]:active {
     border: none;
     border-radius: 6px;
     padding: 0.5rem;
+}
+
+#translate button:disabled {
+    background-color: #464646;
+    color: #a3a3a3;
 }
 
 #text-box, #translated-text-box {
@@ -197,7 +207,7 @@ input[type="radio" i] {
     margin-right: 0.625em;
 }
 
-#language-choice-chat img {
+#language img, #language-choice-chat img {
     margin-left: 0.75em;
     border: 1px solid #999999;
     margin-bottom: -0.3125em;

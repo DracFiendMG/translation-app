@@ -152,7 +152,7 @@ function renderForm() {
 
     let button = state.submitBtn ? 
     `
-        <button id="submit" type="submit">Translate</button>
+        <button id="submit" type="submit" disabled>Translate</button>
     ` :
     `
         <button id="reset" type="reset">Start Over</button>
@@ -162,7 +162,7 @@ function renderForm() {
         <form id="translate">
             <div id="text-box">
                 <label class="headings" for="text">${textLabel}</label>
-                <textarea id="text" name="text">${originalText}</textarea>
+                <textarea id="text" name="text" placeholder="Enter text to translate">${originalText}</textarea>
             </div>
             ${state.translatedText ? translatedTextBox : ''}
             ${state.languages ? languages : ''}
@@ -172,6 +172,11 @@ function renderForm() {
 
     document.getElementById('translate').addEventListener('submit', handleTranslate)
     document.getElementById('translate').addEventListener('reset', resetForm)
+
+    const textarea = document.getElementById('text')
+    textarea.addEventListener('input', () => {
+        document.getElementById('submit').disabled = textarea.value === ''
+    })
 }
 
 function renderChatSection() {
@@ -183,7 +188,7 @@ function renderChatSection() {
             <form id="translate-chat-form">
                 <div id="translate-chat">
                     <input id="chat-text" type="text" name="chat-text" />
-                    <button id="chat-submit" type="submit"><img src="./assets/send-btn.png" /></button>
+                    <button id="chat-submit" type="submit" disabled><img src="./assets/send-btn.png" /></button>
                 </div>
                 <div id="language-choice-chat">
                     <label for="french">
@@ -204,6 +209,11 @@ function renderChatSection() {
     `
 
     document.getElementById('translate-chat-form').addEventListener('submit', handleTranslate)
+
+    const textInput = document.getElementById('chat-text')
+    textInput.addEventListener('input', () => {
+        document.getElementById('chat-submit').disabled = textInput.value === ''
+    })
 }
 
 renderSection()
