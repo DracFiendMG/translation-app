@@ -9,6 +9,9 @@ const state = {
 }
 
 let textLabel = 'Text to translate 👇'
+let conversation = [
+    'Select the language you want me to translate into, type your text and hit send!'
+]
 
 document.getElementById('translate').addEventListener('submit', handleTranslate)
 document.getElementById('translate').addEventListener('reset', resetForm)
@@ -122,4 +125,4 @@ function renderForm() {
     `
 }
 
-renderForm()
+// renderForm()

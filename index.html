@@ -19,13 +19,43 @@
             </div>
         </header>
         <main>
+            <div class="toggle">
+                <p>Use Chat</p>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div>
             <section>
                 <form id="translate">
                     
                 </form>
             </section>
-            <section>
-
+            <section id="chat-section">
+                <div id="conversation">
+                    <p>Select the language you me to translate into, type your text and hit send!</p>
+                    <p>How are you?</p>
+                </div>
+                <form id="translate-chat-form">
+                    <div id="translate-chat">
+                        <input id="chat-text" type="text" name="chat-text" />
+                        <button type="submit"><img src="./assets/send-btn.png" /></button>
+                    </div>
+                    <div id="language-choice-chat">
+                        <label for="french">
+                            <img src="./assets/fr-flag.png">
+                            <input type="radio" id="french" name="language" value="french" checked>
+                        </label>
+                        <label for="spanish">
+                            <img src="./assets/sp-flag.png">
+                            <input type="radio" id="spanish" name="language" value="spanish">
+                        </label>
+                        <label for="japanese">
+                            <img src="./assets/jpn-flag.png">
+                            <input type="radio" id="japanese" name="language" value="japanese">
+                        </label>
+                    </div>
+                </form>
             </section>
         </main>
         <script src="index.js" type="module"></script>
