@@ -1,4 +1,8 @@
+const toggleEl = document.querySelector('.toggle-btn')
 const translateForm = document.getElementById('translate')
+const translateSection = document.getElementById('translate-section')
+const toggleTitle = document.getElementById('toggle-title')
+
 const showTranslatedText = false
 const showLanguages = true
 
@@ -9,12 +13,23 @@ const state = {
 }
 
 let textLabel = 'Text to translate 👇'
-let conversation = [
+
+let conversation = JSON.parse(localStorage.getItem('conversation')) || [
     'Select the language you want me to translate into, type your text and hit send!'
 ]
 
-document.getElementById('translate').addEventListener('submit', handleTranslate)
-document.getElementById('translate').addEventListener('reset', resetForm)
+toggleEl.checked = localStorage.getItem('toggle') || false
+
+toggleEl.addEventListener('click', renderSection)
+
+function renderSection() {
+    if (toggleEl.checked) {
+        renderChatSection()
+    } else {
+        renderForm()
+    }
+    localStorage.setItem('toggle', toggleEl.checked)
+}
 
 async function translate(text, language) {
     try {
@@ -42,25 +57,46 @@ async function translate(text, language) {
 async function handleTranslate(e) {
     e.preventDefault()
 
-    const translateFormData = new FormData(translateForm)
+    if (toggleEl.checked) {
+        const translateChatForm = document.getElementById('translate-chat-form')
 
-    const text = translateFormData.get('text')
-    const language = translateFormData.get('language')
+        const translateChatFormData = new FormData(translateChatForm)
 
-    try {
-        const translation = 
-        // 'comment vas-tu?'
-        await translate(text, language)
-        console.log(translation)
-        textLabel = 'Original Text 👇'
-        state.languages = false
-        state.submitBtn = false
-        state.translatedText = true
-        renderForm()
-        renderTranslatedText(text, translation)
-    } catch (err) {
-        console.error('Failed to translate:', err)
+        const text = translateChatFormData.get('chat-text')
+        const language = translateChatFormData.get('language')
+        conversation.push(text)
+        localStorage.setItem('conversation', JSON.stringify(conversation))
+        renderChatSection()
+
+        try {
+            const translation = 'comment vas-tu?' /*await translate(text, language)*/
+            conversation.push(translation)
+            localStorage.setItem('conversation', JSON.stringify(conversation))
+            renderChatSection()
+        } catch (err) {
+            console.error('Failed to translate:', err)
+        }
+    } else {
+        const translateForm = document.getElementById('translate')
+    
+        const translateFormData = new FormData(translateForm)
+    
+        const text = translateFormData.get('text')
+        const language = translateFormData.get('language')
+    
+        try {
+            const translation = 'comment vas-tu?' //await translate(text, language)
+            textLabel = 'Original Text 👇'
+            state.languages = false
+            state.submitBtn = false
+            state.translatedText = true
+            renderForm()
+            renderTranslatedText(text, translation)
+        } catch (err) {
+            console.error('Failed to translate:', err)
+        }
     }
+
 }
 
 function resetForm() {
@@ -114,15 +150,52 @@ function renderForm() {
         <button id="reset" type="reset">Start Over</button>
     `
 
-    translateForm.innerHTML = `
-        <div id="text-box">
-            <label class="headings" for="text">${textLabel}</label>
-            <textarea id="text" name="text"></textarea>
-        </div>
-        ${state.translatedText ? translatedTextBox : ''}
-        ${state.languages ? languages : ''}
-        ${button}
+    translateSection.innerHTML = `
+        <form id="translate">
+            <div id="text-box">
+                <label class="headings" for="text">${textLabel}</label>
+                <textarea id="text" name="text"></textarea>
+            </div>
+            ${state.translatedText ? translatedTextBox : ''}
+            ${state.languages ? languages : ''}
+            ${button}
+        </form>
     `
+
+    document.getElementById('translate').addEventListener('submit', handleTranslate)
+    document.getElementById('translate').addEventListener('reset', resetForm)
 }
 
-// renderForm()
+function renderChatSection() {
+    document.getElementById('translate-section').innerHTML = `
+        <div id="chat-section">
+            <div id="conversation">
+                ${conversation.map(text => `<p>${text}</p>`).join('')}
+            </div>
+            <form id="translate-chat-form">
+                <div id="translate-chat">
+                    <input id="chat-text" type="text" name="chat-text" />
+                    <button type="submit"><img src="./assets/send-btn.png" /></button>
+                </div>
+                <div id="language-choice-chat">
+                    <label for="french">
+                        <img src="./assets/fr-flag.png">
+                        <input type="radio" id="french" name="language" value="french" checked>
+                    </label>
+                    <label for="spanish">
+                        <img src="./assets/sp-flag.png">
+                        <input type="radio" id="spanish" name="language" value="spanish">
+                    </label>
+                    <label for="japanese">
+                        <img src="./assets/jpn-flag.png">
+                        <input type="radio" id="japanese" name="language" value="japanese">
+                    </label>
+                </div>
+            </form>
+        </div>
+    `
+
+    document.getElementById('translate-chat-form').addEventListener('submit', handleTranslate)
+}
+
+renderSection()

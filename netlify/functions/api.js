@@ -28,7 +28,7 @@ export default async (request, context) => {
             body: JSON.stringify({
                 model: 'openai/gpt-oss-20b',
                 messages: messages,
-                temperature: 1.1,
+                temperature: 1,
                 max_tokens: 1000
             })
         })
