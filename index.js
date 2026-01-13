@@ -14,11 +14,14 @@ const state = {
 
 let textLabel = 'Text to translate 👇'
 
+let translatedText = ''
+let originalText = ''
+
 let conversation = JSON.parse(localStorage.getItem('conversation')) || [
     'Select the language you want me to translate into, type your text and hit send!'
 ]
 
-toggleEl.checked = localStorage.getItem('toggle') || false
+toggleEl.checked = JSON.parse(localStorage.getItem('toggle')) || false
 
 toggleEl.addEventListener('click', renderSection)
 
@@ -68,8 +71,12 @@ async function handleTranslate(e) {
         localStorage.setItem('conversation', JSON.stringify(conversation))
         renderChatSection()
 
+        const submitBtn = document.getElementById('chat-submit')
+        submitBtn.disabled = true
+        submitBtn.innerHTML = '<span class="loader"></span>'
+
         try {
-            const translation = 'comment vas-tu?' /*await translate(text, language)*/
+            const translation = await translate(text, language)
             conversation.push(translation)
             localStorage.setItem('conversation', JSON.stringify(conversation))
             renderChatSection()
@@ -77,6 +84,10 @@ async function handleTranslate(e) {
             console.error('Failed to translate:', err)
         }
     } else {
+        const submitBtn = document.getElementById('submit')
+        submitBtn.disabled = true
+        submitBtn.innerHTML = '<span class="loader"></span>'
+
         const translateForm = document.getElementById('translate')
     
         const translateFormData = new FormData(translateForm)
@@ -85,13 +96,15 @@ async function handleTranslate(e) {
         const language = translateFormData.get('language')
     
         try {
-            const translation = 'comment vas-tu?' //await translate(text, language)
+            const translation = await translate(text, language)
             textLabel = 'Original Text 👇'
             state.languages = false
             state.submitBtn = false
             state.translatedText = true
+            originalText = text
+            translatedText = translation
             renderForm()
-            renderTranslatedText(text, translation)
+            document.getElementById('text').disabled = true
         } catch (err) {
             console.error('Failed to translate:', err)
         }
@@ -104,21 +117,16 @@ function resetForm() {
     state.languages = true
     state.submitBtn = true
     state.translatedText = false
+    originalText = ''
     renderForm()
     document.getElementById('text').disabled = false
-}
-
-function renderTranslatedText(originalText, translation) {
-    document.getElementById('translated-text').value = translation
-    document.getElementById('text').value = originalText
-    document.getElementById('text').disabled = true
 }
 
 function renderForm() {
     let translatedTextBox = `
         <div id="translated-text-box">
             <label class="headings" for="translated-text">Your translation 👇</label>
-            <textarea id="translated-text" name="translated-text" disabled></textarea>
+            <textarea id="translated-text" name="translated-text" disabled>${translatedText}</textarea>
         </div>
     `
 
@@ -154,7 +162,7 @@ function renderForm() {
         <form id="translate">
             <div id="text-box">
                 <label class="headings" for="text">${textLabel}</label>
-                <textarea id="text" name="text"></textarea>
+                <textarea id="text" name="text">${originalText}</textarea>
             </div>
             ${state.translatedText ? translatedTextBox : ''}
             ${state.languages ? languages : ''}
@@ -175,7 +183,7 @@ function renderChatSection() {
             <form id="translate-chat-form">
                 <div id="translate-chat">
                     <input id="chat-text" type="text" name="chat-text" />
-                    <button type="submit"><img src="./assets/send-btn.png" /></button>
+                    <button id="chat-submit" type="submit"><img src="./assets/send-btn.png" /></button>
                 </div>
                 <div id="language-choice-chat">
                     <label for="french">

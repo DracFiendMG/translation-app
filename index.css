@@ -55,6 +55,11 @@ header h1, header p {
     font-weight: 600;
 }
 
+#translate-section {
+    margin: auto;
+    max-width: 700px;
+}
+
 #translate, #chat-section {
     margin: 1.875em 0.9375em;
     border: 4px solid #252F42;
@@ -123,6 +128,7 @@ input[type=text]:active {
 }
 
 #translate button {
+    margin: auto;
     font-size: 1.5em;
     font-family: inherit;
     font-weight: 700;
@@ -191,7 +197,7 @@ input[type="radio" i] {
     margin-right: 0.625em;
 }
 
-div img {
+#language-choice-chat img {
     margin-left: 0.75em;
     border: 1px solid #999999;
     margin-bottom: -0.3125em;
@@ -277,6 +283,27 @@ input:checked + .slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+.loader {
+    display: block;
+    border: 8px solid #F3F3F3;
+    border-radius: 50%;
+    border-top: 8px solid #3498db;
+    width: 24px;
+    height: 24px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 @media (min-width: 400px) {
